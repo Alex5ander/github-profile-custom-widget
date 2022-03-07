@@ -11,7 +11,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "npm i && node index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -19,6 +19,9 @@
     "de",
     "vistas"
   ],
+  "engines": {
+    "node": "14.17.4"
+  },
   "author": "Alexsander Gutierrez Gonçalves",
   "license": "ISC"
 }
