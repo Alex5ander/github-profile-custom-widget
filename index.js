@@ -72,7 +72,7 @@ app.get('/', async (req, res) => {
                 </text>
 
                 <text x="50%" y="9rem" dominant-baseline="middle" font-size="1rem" text-anchor="middle" >
-                    Total de visitas: ${result} desde 
+                    Total de visitas: ${result} 
                 </text>
             </svg>
         `);
