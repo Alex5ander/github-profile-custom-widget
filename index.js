@@ -46,7 +46,7 @@ app.get('/', async (req, res) => {
     const { data, error } = await getCurrentForecast();
 
     if (error) {
-        return res.status(503).end();
+        return res.status(503).end("error on get forecast");
     }
 
     const { current, location } = data;
@@ -55,7 +55,7 @@ app.get('/', async (req, res) => {
 
     Visit.count({}, (error, result) => {
         if (error) {
-            return res.status(503).end("error on count");
+            return res.status(503).end("error on count visits");
         }
 
         res.set({
@@ -63,29 +63,29 @@ app.get('/', async (req, res) => {
             'cache-control': 'max-age=0, no-cache, no-store, must-revalidate'
         });
 
-        let color = 'rgb(255, 0, 0)';
+        let color = 'rgb(192, 0, 0)';
 
         if(current.temp_c < 18) {
-            color =  'rgb(0, 0, 255)';
+            color =  'rgb(0, 0, 192)';
         }
 
         res.send(`
-            <svg version="1.1" style="background-color:${color}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 300 192" width="18.75rem" height="12rem">
-                <image x="7.375rem" xlink:href="data:image/png;base64,${b64}" />
+            <svg version="1.1" style="background-color:${color}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 300 192" width="300px" height="192px">
+                <image x="118px" xlink:href="data:image/png;base64,${b64}" />
                 
-                <text x="50%" y="5rem" dominant-baseline="middle" font-size="2rem" text-anchor="middle" fill="#fff" >
+                <text x="50%" y="80px" dominant-baseline="middle" font-size="32px" text-anchor="middle" fill="#fff" >
                     ${current.temp_c} º
                 </text>
 
-                <text x="50%" y="7rem" dominant-baseline="middle" font-size="1rem" text-anchor="middle" fill="#fff" >
+                <text x="50%" y="112px" dominant-baseline="middle" font-size="16px" text-anchor="middle" fill="#fff" >
                     ${condition.text}\n
                 </text>
 
-                <text x="50%" y="9rem" dominant-baseline="middle" font-size="1rem" text-anchor="middle" fill="#fff" >
+                <text x="50%" y="144px" dominant-baseline="middle" font-size="16px" text-anchor="middle" fill="#fff" >
                     ${location.name} ${location.region}, ${location.country}.
                 </text>
 
-                <text x="50%" y="11rem" dominant-baseline="middle" font-size="1rem" text-anchor="middle" fill="#fff" >
+                <text x="50%" y="176px" dominant-baseline="middle" font-size="16px" text-anchor="middle" fill="#fff" >
                     Total de visitas: ${result} 
                 </text>
             </svg>
